@@ -3,7 +3,7 @@
 When using Siemens' Auto-Align (AA), the prescription of each run is adjusted to follow head pose changes. This is great to maintain restricted fov (e.g. single-slice) acquisitions on the same piece of brain during a long scanning session or across session.
 In the example below, we see the head moving across runs (grayscale head scouts) and the Auto-Aligned acquisition (colorscale single-slice) following that movement.
 
-![sctNfunSagCrop](https://github.com/user-attachments/assets/224dd2b6-dfe8-4a18-b650-ef9a08d2e85d){: width="200"}
+![sctNfunSagCrop](https://github.com/user-attachments/assets/224dd2b6-dfe8-4a18-b650-ef9a08d2e85d){: width="10"}
 
 ## Problem: Visualization (and registration) of multiple auto-aligned images is difficult due to different scanner-space coordinates
 One usually overlay function images (two single-slice images each from a different auto-aligned run, in color below) on top of a reference anatomical image (grayscale image below).
