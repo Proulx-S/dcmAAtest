@@ -48,5 +48,5 @@ So I am doing something wrong here. Note that I don't understant very well how s
 I need help to figure this out. First step: robustly recover and display images at the orientation/position that was originally prescribed (not at the position it was acquired after AA adjustment). I would be happy with just that--I would just rewrite all my dicoms in matlab--but a more usable solution would be to dump the relevant information in the BIDS json sidecar file (https://github.com/bids-standard/bids-specification/discussions/2141) or have a flag in dcm2niix to specify whether you want your image at the originally prescribed or auto-aligned scanner-space location (https://github.com/rordenlab/dcm2niix/issues/944).
 
 ## Acknowledgment
-Thanks to Simon Thalén and Carlos Castillo Passi for their insigth
+Thanks to Simon Thalén and Carlos Castillo Passi for their insigth<br>
 Thanks to the developper of dicm2nii (https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/e5a13851-4a80-11e4-9553-005056977bd0/c5ce193c-31e2-4149-ac28-c6d14a9bd6f4/packages/zip)
