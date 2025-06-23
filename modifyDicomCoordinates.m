@@ -22,16 +22,6 @@ function outputPath = modifyDicomCoordinates(dicomPath, targetFields, outputDirN
     %   % Creates: parentDir/modified/input.dcm
     %   % Returns: full path to the modified file
     
-    % Check if dicm2nii is available, download if not
-    if ~exist('dicm_hdr', 'file')
-        fprintf('Downloading dicm2nii toolbox...\n');
-        url = 'https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/e5a13851-4a80-11e4-9553-005056977bd0/c5ce193c-31e2-4149-ac28-c6d14a9bd6f4/packages/zip';
-        zipFile = websave('dicm2nii.zip', url);
-        unzip(zipFile, 'dicm2nii');
-        delete(zipFile);
-        addpath(genpath('dicm2nii'));
-        fprintf('dicm2nii toolbox downloaded and added to path.\n');
-    end
     
     fprintf('Processing DICOM file: %s\n', dicomPath);
     

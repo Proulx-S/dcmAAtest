@@ -1,6 +1,18 @@
 clear all
 close all
 
+% Check if dicm2nii is available, download if not
+if ~exist('dicm_hdr', 'file')
+    fprintf('Downloading dicm2nii toolbox...\n');
+    url = 'https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/e5a13851-4a80-11e4-9553-005056977bd0/c5ce193c-31e2-4149-ac28-c6d14a9bd6f4/packages/zip';
+    zipFile = websave('dicm2nii.zip', url);
+    unzip(zipFile, 'dicm2nii');
+    delete(zipFile);
+    addpath(genpath('dicm2nii'));
+    fprintf('dicm2nii toolbox downloaded and added to path.\n');
+end
+
+
 targetFieldsRewrite = {
         'sSliceArray.asSlice[0].dInPlaneRot'
         'sSliceArray.asSlice[0].sPosition.dSag'
