@@ -1,0 +1,2 @@
+# Exclude dicm2nii directory from git tracking
+dicm2nii/ 
