@@ -1,0 +1,151 @@
+7.3.2
+
+--mov: Using /home/martinos/Desktop/aregLogs/20241008-16h10/img-00000.nii.gz as movable/source volume.
+--dst: Using /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010.nii.gz as target volume.
+--lta: Output transform as /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010.lta . 
+--mapmov: Will save resampled movable as /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010_map.nii.gz !
+--weights: Will output weights (in target space) as /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010_weights.nii.gz !
+--satit: Will iterate with different SAT to ensure outliers below wlimit!
+--iscale: Enabling intensity scaling!
+
+reading source '/home/martinos/Desktop/aregLogs/20241008-16h10/img-00000.nii.gz'...
+reading target '/home/martinos/Desktop/aregLogs/20241008-16h10/img-00010.nii.gz'...
+
+Registration::setSourceAndTarget(MRI s, MRI t, keeptype = TRUE )
+   Type Source : 4  Type Target : 4  keeping type 
+   Mov: (4, 4, 4)mm  and dim (64, 64, 64)
+   Dst: (4, 4, 4)mm  and dim (64, 64, 64)
+   Asserting both images: 4mm isotropic 
+    - no Mov reslice necessary
+    - no Dst reslice necessary
+
+
+ Registration::findSaturation 
+   - computing centroids 
+   - computing initial transform
+     -- using translation info
+   - Get Gaussian Pyramid Limits ( min size: 16 max size: -1 ) 
+   - Build Gaussian Pyramid ( Limits min steps: 0 max steps: 1 ) 
+   - Build Gaussian Pyramid ( Limits min steps: 0 max steps: 1 ) 
+
+   - Max Resolution used: 0
+     -- gpS ( 64 , 64 , 64 )
+     -- gpT ( 64 , 64 , 64 )
+   - running loop to estimate saturation parameter:
+     -- Iteration: 1  trying sat: 16
+         min sat: 0 ( -1 ), max sat: 16 ( 0.0133321 ), sat diff: 16, (wlimit=0.16)
+     -- Iteration: 2  trying sat: 8
+         min sat: 0 ( -1 ), max sat: 8 ( 0.0484422 ), sat diff: 8, (wlimit=0.16)
+     -- Iteration: 3  trying sat: 4
+         min sat: 0 ( -1 ), max sat: 4 ( 0.136402 ), sat diff: 4, (wlimit=0.16)
+     -- Iteration: 4  trying sat: 2
+         min sat: 2 ( 0.318667 ), max sat: 4 ( 0.136402 ), sat diff: 2, (wlimit=0.16)
+     -- Iteration: 5  trying sat: 3
+         min sat: 3 ( 0.205016 ), max sat: 4 ( 0.136402 ), sat diff: 1, (wlimit=0.16)
+     -- Iteration: 6  trying sat: 3.5
+   - final SAT: 4 ( it: 6 , weight check 0.136402 <= 0.16 )
+
+
+ Registration::computeMultiresRegistration 
+   - computing centroids 
+   - computing initial transform
+     -- using translation info
+   - Get Gaussian Pyramid Limits ( min size: 16 max size: -1 ) 
+   - initial transform:
+Ti = [ ...
+ 1.0000000000000                0                0 -0.0742185211499 
+               0  1.0000000000000                0  0.8639070192478 
+               0                0  1.0000000000000 -0.0121444223192 
+               0                0                0  1.0000000000000  ]
+
+   - initial iscale:  Ii =1
+
+Resolution: 1  S( 32 32 32 )  T( 32 32 32 )
+ Iteration(f): 1
+     -- intensity log diff: abs(-0.00993189) 
+     -- diff. to prev. transform: 3.95322
+ Iteration(f): 2
+     -- intensity log diff: abs(-0.00197748) 
+     -- diff. to prev. transform: 0.0195679
+ Iteration(f): 3
+     -- intensity log diff: abs(0.000268949)  <= 0.001  :-)
+     -- diff. to prev. transform: 0.0494456
+ Iteration(f): 4
+     -- intensity log diff: abs(-0.000578955)  <= 0.001  :-)
+     -- diff. to prev. transform: 0.0404372
+ Iteration(f): 5
+     -- intensity log diff: abs(-0.000108448)  <= 0.001  :-)
+     -- diff. to prev. transform: 0.0352539 max it: 5 reached!
+
+Resolution: 0  S( 64 64 64 )  T( 64 64 64 )
+ Iteration(f): 1
+     -- intensity log diff: abs(0.00437729) 
+     -- diff. to prev. transform: 0.510926
+ Iteration(f): 2
+     -- intensity log diff: abs(-0.00332276) 
+     -- diff. to prev. transform: 0.112291
+ Iteration(f): 3
+     -- intensity log diff: abs(0.0036044) 
+     -- diff. to prev. transform: 0.0487133
+ Iteration(f): 4
+     -- intensity log diff: abs(-0.00291379) 
+     -- diff. to prev. transform: 0.07728
+ Iteration(f): 5
+     -- intensity log diff: abs(0.00233683) 
+     -- diff. to prev. transform: 0.0446382 max it: 5 reached!
+
+   - final transform: 
+Tf = [ ...
+ 0.9981238795535 -0.0568809172044  0.0226557348813  1.1647690334641 
+ 0.0570615767047  0.9983431721065 -0.0074085877434 -0.7509342666005 
+-0.0221967909617  0.0086874602942  0.9997158748888  0.4058339725184 
+               0                0                0  1.0000000000000  ]
+
+   - final iscale:  If = 1.00828
+
+**********************************************************
+*
+* WARNING: Registration did not converge in 5 steps! 
+*          Problem might be ill posed. 
+*          Please inspect output manually!
+*
+**********************************************************
+
+Final Transform:
+M = [ ...
+ 0.9981238795535 -0.0568809172044  0.0226557348813  1.1647690334641 
+ 0.0570615767047  0.9983431721065 -0.0074085877434 -0.7509342666005 
+-0.0221967909617  0.0086874602942  0.9997158748888  0.4058339725184 
+               0                0                0  1.0000000000000  ]
+
+ Determinant : 1
+
+Intenstiy Scale Factor: 1.00828
+
+writing output transformation to /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010.lta ...
+converting VOX to RAS and saving RAS2RAS...
+Adjusting Intensity of MOV by 1.00828
+
+mapmov: resampling MOV to DST ...
+ copy ... 
+ transform ... 
+MRItoBSpline degree 3
+
+To check aligned result, run:
+  freeview -v /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010.nii.gz /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010_map.nii.gz
+
+Writing out Weights ...
+... overlay the weights:
+  freeview -v /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010.nii.gz /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010_map.nii.gz /home/martinos/Desktop/aregLogs/20241008-16h10/img-00010_weights.nii.gz:colormap=heat
+
+
+Registration took 0 minutes and 1 seconds.
+
+ Thank you for using RobustRegister! 
+ If you find it useful and use it for a publication, please cite: 
+
+ Highly Accurate Inverse Consistent Registration: A Robust Approach
+ M. Reuter, H.D. Rosas, B. Fischl.  NeuroImage 53(4):1181-1196, 2010.
+ http://dx.doi.org/10.1016/j.neuroimage.2010.07.020
+ http://reuter.mit.edu/papers/reuter-robreg10.pdf
+
