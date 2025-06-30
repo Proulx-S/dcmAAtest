@@ -1,6 +1,7 @@
 clear all
 close all
 
+%% Dependencies
 % Check if dicm2nii is available, download if not
 if ~exist('dicm_hdr', 'file')
     fprintf('Downloading dicm2nii toolbox...\n');
@@ -13,31 +14,52 @@ if ~exist('dicm_hdr', 'file')
 end
 
 
+
+%% Showcasing CSA MrPhoenixProtocol fields that seems relevant
+dicomPath = fullfile(pwd, 'sub-vsmDrivenP3/013-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm');
+info2 = dicm_hdr(dicomPath);
+fieldValues = extractProtocolFields(info2.CSASeriesHeaderInfo.MrPhoenixProtocol);
+% when the second input to extractProtocolFields is omited, it will write MrPhoenixProtocol to a tmp file and output the path in fieldValues
+open(fieldValues)
+
+% most relevant fields
 targetFieldsRewrite = {
-        'sSliceArray.asSlice[0].dInPlaneRot'
-        'sSliceArray.asSlice[0].sPosition.dSag'
-        'sSliceArray.asSlice[0].sPosition.dCor'
-        'sSliceArray.asSlice[0].sPosition.dTra'
-        'sSliceArray.asSlice[0].sNormal.dSag'
-        'sSliceArray.asSlice[0].sNormal.dCor'
-        'sSliceArray.asSlice[0].sNormal.dTra'
+    'sSliceArray.asSlice[0].dInPlaneRot'
+    'sSliceArray.asSlice[0].sPosition.dSag'
+    'sSliceArray.asSlice[0].sPosition.dCor'
+    'sSliceArray.asSlice[0].sPosition.dTra'
+    'sSliceArray.asSlice[0].sNormal.dSag'
+    'sSliceArray.asSlice[0].sNormal.dCor'
+    'sSliceArray.asSlice[0].sNormal.dTra'
     };
-    targetFieldsModify = {
-        'sAAInitialOffset.SliceInformation.dInPlaneRot'
-        'sAAInitialOffset.SliceInformation.sPosition.dSag'
-        'sAAInitialOffset.SliceInformation.sPosition.dCor'
-        'sAAInitialOffset.SliceInformation.sPosition.dTra'
-        'sAAInitialOffset.SliceInformation.sNormal.dSag'
-        'sAAInitialOffset.SliceInformation.sNormal.dCor'
-        'sAAInitialOffset.SliceInformation.sNormal.dTra'
+targetFieldsModify = {
+    'sAAInitialOffset.SliceInformation.dInPlaneRot'
+    'sAAInitialOffset.SliceInformation.sPosition.dSag'
+    'sAAInitialOffset.SliceInformation.sPosition.dCor'
+    'sAAInitialOffset.SliceInformation.sPosition.dTra'
+    'sAAInitialOffset.SliceInformation.sNormal.dSag'
+    'sAAInitialOffset.SliceInformation.sNormal.dCor'
+    'sAAInitialOffset.SliceInformation.sNormal.dTra'
     };
 
 
+%% Showcase dicom fields to be modified to affect slice location/orientation after conversion to nifti
+dicomPath = fullfile(pwd, 'sub-vsmDrivenP3/013-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm');
+info = dicominfo(dicomPath);
+info.ImagePositionPatient
+info.SliceLocation
+info.ImageOrientationPatient
+
+
+
+
+%% Modify run 1 (acquired toward the beginning of the session) header
+% Read and modify the dicom headers
 dicomOriginal  = fullfile(pwd, 'sub-vsmDrivenP3/013-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm')
 dicomRewritten = modifyDicomCoordinates(dicomOriginal, targetFieldsRewrite, 'rewritten')
 dicomModified  = modifyDicomCoordinates(dicomOriginal, targetFieldsModify , 'modified' )
 
-
+% Convert to nifti
 delete(fullfile(fileparts(dicomOriginal), '*.nii'))
 delete(fullfile(fileparts(dicomOriginal), '*.json'))
 system(sprintf('dcm2niix -o "%s" "%s"', fileparts(dicomOriginal), fileparts(dicomOriginal)));
@@ -54,12 +76,15 @@ system(sprintf('dcm2niix -o "%s" "%s"', fileparts(dicomModified), fileparts(dico
 
 
 
+%% Modify run 2 (acquired toward the end of the session) header
 
+% Read and modify the dicom headers
 dicomOriginal  = fullfile(pwd, 'sub-vsmDrivenP3/037-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm')
 dicomRewritten = modifyDicomCoordinates(dicomOriginal, targetFieldsRewrite, 'rewritten')
 dicomModified  = modifyDicomCoordinates(dicomOriginal, targetFieldsModify , 'modified' )
 
 
+% Convert to nifti
 delete(fullfile(fileparts(dicomOriginal), '*.nii'))
 delete(fullfile(fileparts(dicomOriginal), '*.json'))
 system(sprintf('dcm2niix -o "%s" "%s"', fileparts(dicomOriginal), fileparts(dicomOriginal)));
@@ -74,7 +99,7 @@ system(sprintf('dcm2niix -o "%s" "%s"', fileparts(dicomModified), fileparts(dico
 
 
 
-
+%% Visualize and summarize results
 % Run1 vs run 2 original
 % freeview sub-vsmDrivenP3/004-MEMP_4e_p3_hiBW_TR3500_TI1300_RMS_MEMP_4e_p3_hiBW_TR3500_TI1300_20241008161209_4.nii sub-vsmDrivenP3/013-vfMRI_fl3d_p4xp4x1p2_1e/orig/orig_vfMRI_fl3d_p4xp4x1p2_1e_20241008161209_13.nii sub-vsmDrivenP3/037-vfMRI_fl3d_p4xp4x1p2_1e/orig/orig_vfMRI_fl3d_p4xp4x1p2_1e_20241008161209_37.nii
 % The two slices are not aligned. That is normal because the head position changed from run one to run 2 and autoalign correctly adjusted slice prescription to follow the head.
