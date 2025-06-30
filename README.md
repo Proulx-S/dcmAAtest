@@ -1,4 +1,5 @@
 # Better header information for MRI acquired using Siemens' Auto-Align
+starts exploring doIt.m
 ## Background: Auto-Align counteracts head pose changes during a long scanning session
 When using Siemens' Auto-Align (AA), the prescription of each run is adjusted to follow head pose changes. This is great to maintain restricted fov (e.g. single-slice) acquisitions on the same piece of brain during a long scanning session or across sessions.
 In the example below, we see the head moving across runs (grayscale head scouts) and the Auto-Aligned acquisition (colorscale single-slice) following that movement.
