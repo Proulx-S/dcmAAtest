@@ -53,7 +53,7 @@ info.SliceLocation
 info.ImageOrientationPatient
 
 
-%% Showcase other candidate fields
+%% Showcase other candidate fields (none has new information)
 info2.CSAImageHeaderInfo.SlicePosition_PCS
 info2.CSAImageHeaderInfo.PhaseEncodingDirectionPositive
 info2.CSAImageHeaderInfo.ImaRelTablePosition
