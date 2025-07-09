@@ -46,12 +46,41 @@ targetFieldsModify = {
 
 
 %% Showcase dicom fields to be modified to affect slice location/orientation after conversion to nifti
-dicomPath = fullfile(pwd, 'sub-vsmDrivenP3/013-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm');
+dicomPath = fullfile(pwd, 'sub-vsmDrivenP3/037-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm');
 info = dicominfo(dicomPath);
 info.ImagePositionPatient
 info.SliceLocation
 info.ImageOrientationPatient
 
+
+%% Showcase other candidate fields
+info2.CSAImageHeaderInfo.SlicePosition_PCS
+info2.CSAImageHeaderInfo.PhaseEncodingDirectionPositive
+info2.CSAImageHeaderInfo.ImaRelTablePosition
+info2.SliceLocation
+info2.ImageOrientationPatient
+info2.ImagePositionPatient
+info2.SlicePosition_PCS
+info2.ImaRelTablePosition
+info2.ImaAbsTablePosition
+info2.TablePositionOrigin
+info2.AcquisitionMatrix
+info2.InPlanePhaseEncodingDirection
+info2.ReferencedImageSequence
+
+info.Private_0019_10xx_Creator
+info.Private_0019_100b
+info.Private_0019_100f
+info.Private_0019_1008
+info.Private_0019_1009
+info.Private_0019_1011
+info.Private_0019_1012
+info.Private_0019_1013
+info.Private_0019_1014
+info.Private_0019_1015 % same as ImagePositionPatient or SlicePosition_PCS
+info.Private_0019_1016
+info.Private_0019_1017
+info.Private_0019_1018
 
 
 
