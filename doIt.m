@@ -16,11 +16,13 @@ end
 
 
 %% Showcasing CSA MrPhoenixProtocol fields that seems relevant
-dicomPath = fullfile(pwd, 'sub-vsmDrivenP3/013-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm');
+dicomPath = fullfile(pwd, 'sub-vsmDrivenP3/037-vfMRI_fl3d_p4xp4x1p2_1e/orig/oneFrame.dcm');
 info2 = dicm_hdr(dicomPath);
-fieldValues = extractProtocolFields(info2.CSASeriesHeaderInfo.MrPhoenixProtocol);
+MrPhoenixFile = extractProtocolFields(info2.CSASeriesHeaderInfo.MrPhoenixProtocol);
 % when the second input to extractProtocolFields is omited, it will write MrPhoenixProtocol to a tmp file and output the path in fieldValues
-open(fieldValues)
+movefile(MrPhoenixFile, fullfile(pwd, 'MrPhoenixProtocolExample.txt'));
+MrPhoenixFile = fullfile(pwd, 'MrPhoenixProtocolExample.txt');
+open(MrPhoenixFile)
 
 % most relevant fields
 targetFieldsRewrite = {
